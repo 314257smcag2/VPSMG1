@@ -1,12 +1,12 @@
 services:
-    ubuntu:
+    VPSMG1:
         public: true
-        container_name: tzchz
+        container_name: VPSMG1
         image: imlala/ubuntu-xfce-vnc-novnc:latest
         ports:
             - 6080:6080
         environment: 
-            - VNC_PASSWD=freerdp
+            - VNC_PASSWD=AliAly032230
             - GEOMETRY=1280x768
             - TZ=Asia/Shanghai
             - DEPTH=24
@@ -17,5 +17,5 @@ services:
           cpu: 1000m
           memory: 3072Mi
           storage:
-            size: 2Gi
+            size: 500Mi
             class: standard

@@ -1,5 +1,5 @@
 services:
-    VPSMG1:
+    vpsmg1:
         public: true
         container_name: VPSMG1
         image: imlala/ubuntu-xfce-vnc-novnc:latest
@@ -14,7 +14,7 @@ services:
             - /root/Desktop
             - /home
         resources:
-          cpu: 1000m
+          cpu: 500m
           memory: 3072Mi
           storage:
             size: 500Mi

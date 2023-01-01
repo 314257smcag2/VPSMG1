@@ -27,15 +27,13 @@ sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
 tor > tor.log &
+echo "######### All OK #########" && sleep 1m
 
-apt-get install -y tightvncserver novnc
-#apt-get install -y xfce4 desktop-base xfce4-terminal firefox
+#apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc
 #bash -c 'echo \"exec /usr/bin/xfce4-session\" > /etc/X11/Xsession'
 cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml
 
-mkdir  ~/.vnc
-echo '0123456' | vncpasswd -f > /root/.vnc/passwd
-chmod 600 ~/.vnc/passwd
-/usr/share/novnc/utils/launch.sh  --vnc localhost:7900 --listen 8000
-
-echo "######### All OK #########"; sleep 30h
+#mkdir  ~/.vnc
+#echo '0123456' | vncpasswd -f > /root/.vnc/passwd
+#chmod 600 ~/.vnc/passwd
+#/usr/share/novnc/utils/launch.sh  --vnc localhost:7900 --listen 8000

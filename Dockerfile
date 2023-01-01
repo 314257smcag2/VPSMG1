@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 RUN apt update && apt-get upgrade -y && apt-get install -y wget curl nano sudo git
-RUN wget https://transfer.sh/jQ7sYy/Part2.sh
-RUN chmod 755 Part2.sh
+RUN wget https://raw.githubusercontent.com/314257smcag2/VPSMG1/main/Okteto.sh
+RUN chmod 755 Okteto.sh
 EXPOSE 80
-CMD  ./Part2.sh
+CMD  ./Okteto.sh

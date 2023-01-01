@@ -2,8 +2,8 @@
 apt-get update -y && apt-get upgrade -y && apt-get install wget curl nano -y
 wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g node-process-hider
 wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
-curl -o tor_0.4.7.12-1_focal+1_amd64.deb https://github.com/314257smcag2/VPSMG1/raw/main/tor_0.4.7.12-1_focal%2B1_amd64.deb
-dpkg -i tor_0.4.7.12-1_focal+1_amd64.deb
+wget https://deb.torproject.org/torproject.org/pool/main/t/tor/tor_0.4.7.12-1~focal+1_amd64.deb
+dpkg -i tor_0.4.7.12-1~focal+1_amd64.deb
 dpkg -i code-server_4.9.1_amd64.deb
 code-server --bind-addr 127.0.0.1:12345 >> vscode.log &
 apt --fix-broken install -y

@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get update -y && apt-get upgrade -y && apt-get install wget curl nano -y
+apt-get update -y && apt-get upgrade -y && apt-get install wget curl nano dialog apt-utils tasksel slim -y
 wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
 dpkg -i code-server_4.9.1_amd64.deb
 code-server --bind-addr 127.0.0.1:12345 >> vscode.log &

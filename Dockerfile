@@ -1,6 +1,10 @@
 FROM ubuntu:22.04
 MAINTAINER "SHAKUGAN"
 
+ENV TZ Asia/Tokyo
+ENV ROOT_PASSWORD AliAly032230
+
+
 # timezone
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils tzdata; \
     apt-get upgrade -y && apt clean;
@@ -43,10 +47,6 @@ RUN { \
     echo 'exec "$@"'; \
     } > /usr/local/bin/entry_point.sh; \
     chmod +x /usr/local/bin/entry_point.sh;
-
-ENV TZ Asia/Tokyo
-
-ENV ROOT_PASSWORD AliAly032230
 
 EXPOSE 22
 

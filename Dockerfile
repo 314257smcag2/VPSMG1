@@ -55,6 +55,8 @@ RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
+RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
+RUN echo 'sleep 100h' >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh
 

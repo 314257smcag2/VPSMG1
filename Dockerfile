@@ -48,9 +48,10 @@ RUN { \
     echo 'echo "root:${ROOT_PASSWORD}" | chpasswd'; \
     echo 'exec "$@"'; \
     } > /usr/local/bin/entry_point.sh; \
-    chmod +x /usr/local/bin/entry_point.sh;
+    chmod +x /usr/local/bin/entry_point.sh; \
+    cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml;
 
 EXPOSE 22
 
 ENTRYPOINT ["entry_point.sh"]
-CMD    ["/usr/sbin/sshd", "-D", "-e", "cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml"]
+CMD    ["/usr/sbin/sshd", "-D", "-e"]

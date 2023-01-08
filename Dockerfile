@@ -2,10 +2,9 @@ FROM ubuntu:22.04
 
 ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
-ENV TZ America/New_York
 ENV VNC_PASSWORD SHAKUGAN
 
-RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
     apt clean;

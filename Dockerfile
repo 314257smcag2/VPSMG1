@@ -10,7 +10,7 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
     apt clean;
 
 # timezone
-RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils; \
+RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;
 
 # sshd
@@ -23,7 +23,7 @@ RUN mkdir /run/sshd; \
 # VSCODETOr
 RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
 RUN dpkg -i code-server_4.9.1_amd64.deb
-RUN code-server --bind-addr 127.0.0.1:12345 >> vscode.log &
+RUN nohup code-server --bind-addr 127.0.0.1:12345 &> /dev/null &
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
 RUN apt-get install tor -y
 RUN sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc
@@ -36,21 +36,20 @@ RUN sed -i '73s\#HiddenServicePort 22 127.0.0.1:22\HiddenServicePort 22 127.0.0.
 RUN sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
-RUN tor > tor.log &
+RUN nohup tor &> /dev/null &
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN echo "######### wait Tor #########"; sleep 1m
 RUN apt clean
+RUN cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml
 
 # entrypoint
 RUN { \
     echo '#!/bin/bash -eu'; \
     echo 'ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime'; \
     echo 'echo "root:${ROOT_PASSWORD}" | chpasswd'; \
-    echo 'cat /var/lib/tor/hidden_service/hostname'; \
-    echo 'cat root/.config/code-server/config.yaml'; \
     echo 'exec "$@"'; \
     } > /usr/local/bin/entry_point.sh; \
-    chmod +x /usr/local/bin/entry_point.sh; \
+    chmod +x /usr/local/bin/entry_point.sh;
     
 EXPOSE 22
 

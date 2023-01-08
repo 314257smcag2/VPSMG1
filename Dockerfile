@@ -8,8 +8,7 @@ ENV L fr
 
 # timezone
 RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
-    dpkg-reconfigure --frontend noninteractive tzdata; \
-    apt-get install -y tzdata;
+    dpkg-reconfigure --frontend noninteractive tzdata
     
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;

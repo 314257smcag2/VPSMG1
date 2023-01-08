@@ -1,10 +1,11 @@
 FROM ubuntu:22.04
-MAINTAINER "SHAKUGAN"
 
+ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 ENV TZ America/New_York
+ENV VNC_PASSWORD SHAKUGAN
 
-RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
+RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
     apt clean;
@@ -12,6 +13,13 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
 # timezone
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;
+
+# user
+RUN useradd -m ${USER_NAME};\
+    adduser ${USER_NAME} sudo; \
+    echo '${USER_NAME}:${ROOT_PASSWORD}' | sudo chpasswd; \
+    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd; \
+    echo root:${ROOT_PASSWORD} | chpasswd;
 
 # sshd
 RUN mkdir /run/sshd; \
@@ -23,7 +31,7 @@ RUN mkdir /run/sshd; \
 # VSCODETOr
 RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
 RUN dpkg -i code-server_4.9.1_amd64.deb
-RUN nohup code-server --bind-addr 127.0.0.1:12345 &> /dev/null &
+RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
 RUN apt-get install tor -y
 RUN sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc
@@ -36,22 +44,26 @@ RUN sed -i '73s\#HiddenServicePort 22 127.0.0.1:22\HiddenServicePort 22 127.0.0.
 RUN sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
-RUN nohup tor &> /dev/null &
+RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN rm -rf code-server_4.9.1_amd64.deb
-RUN echo "######### wait Tor #########"; sleep 1m
 RUN apt clean
-RUN cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml
 
-# entrypoint
-RUN { \
-    echo '#!/bin/bash -eu'; \
-    echo 'ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime'; \
-    echo 'echo "root:${ROOT_PASSWORD}" | chpasswd'; \
-    echo 'exec "$@"'; \
-    } > /usr/local/bin/entry_point.sh; \
-    chmod +x /usr/local/bin/entry_point.sh;
-    
-EXPOSE 22
+# desktop
+RUN apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc dialog apt-utils
+RUN bash -c 'echo \"exec /usr/bin/xfce4-session\" > /etc/X11/Xsession'
 
-ENTRYPOINT ["entry_point.sh"]
-CMD    ["/usr/sbin/sshd", "-D", "-e"]
+# novnc
+RUN mkdir  /root/.vnc
+RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
+RUN chmod 600 /root/.vnc/passwd
+RUN echo "su root -l -c 'vncserver :2000 ' "  >>/VSCODETOr.sh
+RUN echo './utils/launch.sh  --vnc localhost:7900 --listen 8000 ' >>/VSCODETOr.sh
+RUN echo 'echo "######### wait Tor #########"; sleep 3m ' >>/VSCODETOr.sh
+RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
+RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
+
+RUN chmod 755 /VSCODETOr.sh
+
+EXPOSE 80
+
+CMD  ./VSCODETOr.sh

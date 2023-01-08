@@ -43,14 +43,14 @@ RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
 # desktop
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-terminal firefox tigervnc-standalone-server novnc
 
 # novnc
 RUN mkdir  /root/.vnc
 RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
 RUN chmod 600 /root/.vnc/passwd
-RUN echo "su root -l -c 'vncserver :2000 ' "  >>/VSCODETOr.sh
-RUN echo '/usr/share/novnc/utils/launch.sh --vnc localhost:7900 --listen 8000 ' >>/VSCODETOr.sh
+RUN echo "su root -l -c 'vncserver -localhost no ' "  >>/VSCODETOr.sh
+RUN echo '/usr/share/novnc/utils/launch.sh --vnc localhost:5901 --listen 8000 ' >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh

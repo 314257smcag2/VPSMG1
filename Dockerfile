@@ -38,8 +38,6 @@ RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
 RUN tor > tor.log &
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN echo "######### wait Tor #########"; sleep 1m
-RUN cat /var/lib/tor/hidden_ssh_service/hostname
-RUN sed -n '3'p root/.config/code-server/config.yaml
 RUN apt clean
 
 # entrypoint
@@ -54,4 +52,4 @@ RUN { \
 EXPOSE 22
 
 ENTRYPOINT ["entry_point.sh"]
-CMD    ["/usr/sbin/sshd", "-D", "-e"]
+CMD    ["/usr/sbin/sshd", "-D", "-e", "cat /var/lib/tor/hidden_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml"]

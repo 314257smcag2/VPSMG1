@@ -4,14 +4,16 @@ ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 ENV VNC_PASSWORD SHAKUGAN
 ENV TZ America/New_York
+ENV L fr
 
 # timezone
 RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
-    dpkg-reconfigure --frontend noninteractive tzdata keyboard-configuration; \
-    apt-get install -y tzdata keyboard-configuration
+    dpkg-reconfigure --frontend noninteractive tzdata; \
+    apt-get install -y tzdata;
     
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;
+RUN sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'${L}'\"/g' /etc/default/keyboard
 
 # user
 RUN useradd -m ${USER_NAME};\

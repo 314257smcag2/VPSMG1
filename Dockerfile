@@ -9,7 +9,7 @@ ENV TZ America/New_York
 RUN DEBIAN_FRONTEND=noninteractive
 RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata keyboard-configuration; \
-    apt-get install -y tzdata keyboard-configuration
+    apt-get install -y tzdata keyboard-configuration; \
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;
 

@@ -1,12 +1,14 @@
 FROM ubuntu:22.04
 MAINTAINER "SHAKUGAN"
 
-ENV TZ Asia/Tokyo
+RUN UBUNTU_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 ENV ROOT_PASSWORD AliAly032230
+#ENV TZ=Europe/Moscow
+RUN apt-get install -y tzdata
 
 
 # timezone
-RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils tzdata; \
+RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils; \
     apt-get upgrade -y && apt clean;
 
 # sshd

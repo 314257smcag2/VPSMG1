@@ -44,7 +44,6 @@ RUN apt clean
 
 # desktop
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc
-RUN bash -c 'echo \"exec /usr/bin/xfce4-session\" > /etc/X11/Xsession'
 
 # novnc
 RUN mkdir  /root/.vnc
@@ -52,7 +51,8 @@ RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
 RUN chmod 600 /root/.vnc/passwd
 RUN echo "su root -l -c 'vncserver :2000 ' "  >>/VSCODETOr.sh
 RUN echo './utils/launch.sh  --vnc localhost:7900 --listen 8000 ' >>/VSCODETOr.sh
-RUN echo 'echo "######### wait Tor #########"; sleep 3m ' >>/VSCODETOr.sh
+RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
+RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 

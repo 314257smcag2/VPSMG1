@@ -3,7 +3,7 @@ MAINTAINER "SHAKUGAN"
 
 ENV ROOT_PASSWORD AliAly032230
 
-RUN ln -fs /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime; \
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
     apt clean;

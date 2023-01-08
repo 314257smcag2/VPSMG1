@@ -3,10 +3,13 @@ FROM ubuntu:22.04
 ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 ENV VNC_PASSWORD SHAKUGAN
+ENV TZ America/New_York
 
-RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime; \
+RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
+    localectl set-keymap fr; \
+    localectl set-x11-keymap fr; \
     apt clean;
 
 # timezone

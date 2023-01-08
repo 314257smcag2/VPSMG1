@@ -8,8 +8,16 @@ ENV TZ America/New_York
 RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
-    localectl set-keymap fr; \
-    localectl set-x11-keymap fr; \
+    apt-get install -y console-setup keyboard-configuration; \
+    echo '
+          XKBMODEL="pc105"
+          XKBLAYOUT="fr"
+          XKBVARIANT=""
+          XKBOPTIONS=""
+    
+          BACKSPACE="guess"
+          ' > /etc/default/keyboard; \
+    dpkg-reconfigure --frontend noninteractive keyboard-configuration; \
     apt clean;
 
 # timezone

@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 MAINTAINER "SHAKUGAN"
 
 # timezone
-RUN apt update && apt-get upgrade -y && apt install -y wget curl nano sudo git xz-utils tzdata; \
-    apt clean;
+RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils tzdata; \
+    apt-get upgrade -y && apt clean;
 
 # sshd
 RUN mkdir /run/sshd; \

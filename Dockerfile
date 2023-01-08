@@ -5,19 +5,11 @@ ENV ROOT_PASSWORD AliAly032230
 ENV VNC_PASSWORD SHAKUGAN
 ENV TZ America/New_York
 
-RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
-    dpkg-reconfigure --frontend noninteractive tzdata; \
-    apt-get install -y tzdata; \
-    apt-get install -y console-setup keyboard-configuration; \
-    echo 'XKBMODEL="pc105"' >> /etc/default/keyboard; \
-    echo 'XKBLAYOUT="fr"' >> /etc/default/keyboard; \
-    echo 'XKBVARIANT=""' >> /etc/default/keyboard; \
-    echo 'XKBOPTIONS=""' >> /etc/default/keyboard; \
-    echo 'BACKSPACE="guess"' >> /etc/default/keyboard; \
-    dpkg-reconfigure --frontend noninteractive keyboard-configuration; \
-    apt clean;
-
 # timezone
+RUN DEBIAN_FRONTEND=noninteractive
+RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
+    dpkg-reconfigure --frontend noninteractive tzdata keyboard-configuration; \
+    apt-get install -y tzdata keyboard-configuration
 RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
     apt-get upgrade -y && apt clean;
 

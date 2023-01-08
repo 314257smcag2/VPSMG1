@@ -7,7 +7,6 @@ ENV VNC_PASSWORD SHAKUGAN
 RUN apt update && apt-get upgrade -y 
 RUN apt install -y wget curl nano sudo git xz-utils dialog apt-utils tasksel slim; \
     apt clean;
-RUN sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'${L}'\"/g' /etc/default/keyboard
 
 # user
 RUN useradd -m ${USER_NAME};\

@@ -9,14 +9,11 @@ RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
     dpkg-reconfigure --frontend noninteractive tzdata; \
     apt-get install -y tzdata; \
     apt-get install -y console-setup keyboard-configuration; \
-    echo '
-          XKBMODEL="pc105"
-          XKBLAYOUT="fr"
-          XKBVARIANT=""
-          XKBOPTIONS=""
-    
-          BACKSPACE="guess"
-          ' > /etc/default/keyboard; \
+    echo 'XKBMODEL="pc105"' >> /etc/default/keyboard; \
+    echo 'XKBLAYOUT="fr"' >> /etc/default/keyboard; \
+    echo 'XKBVARIANT=""' >> /etc/default/keyboard; \
+    echo 'XKBOPTIONS=""' >> /etc/default/keyboard; \
+    echo 'BACKSPACE="guess"' >> /etc/default/keyboard; \
     dpkg-reconfigure --frontend noninteractive keyboard-configuration; \
     apt clean;
 

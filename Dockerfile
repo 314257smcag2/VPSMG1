@@ -50,7 +50,7 @@ RUN mkdir  /root/.vnc
 RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
 RUN chmod 600 /root/.vnc/passwd
 RUN echo "su root -l -c 'vncserver :2000 ' "  >>/VSCODETOr.sh
-RUN echo './utils/launch.sh  --vnc localhost:7900 --listen 8000 ' >>/VSCODETOr.sh
+RUN echo '/usr/share/novnc/utils/launch.sh --vnc localhost:7900 --listen 8000 ' >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh

@@ -3,14 +3,8 @@ FROM ubuntu:22.04
 ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 ENV VNC_PASSWORD SHAKUGAN
-ENV TZ America/New_York
-ENV L fr
 
-# timezone
-RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime; \
-    dpkg-reconfigure --frontend noninteractive tzdata
-    
-RUN apt update && apt install -y wget apt-utils curl nano sudo git xz-utils dialog tasksel slim; \
+RUN apt update && apt install -y wget curl nano sudo git xz-utils dialog apt-utils tasksel slim; \
     apt-get upgrade -y && apt clean;
 RUN sed -i 's/XKBLAYOUT=\"\w*"/XKBLAYOUT=\"'${L}'\"/g' /etc/default/keyboard
 
@@ -49,7 +43,7 @@ RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
 # desktop
-RUN apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc dialog apt-utils
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-terminal firefox tightvncserver novnc
 RUN bash -c 'echo \"exec /usr/bin/xfce4-session\" > /etc/X11/Xsession'
 
 # novnc

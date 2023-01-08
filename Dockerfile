@@ -36,7 +36,7 @@ RUN sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
 RUN tor > tor.log &
-RUN rm -rf dpkg -i tor_0.4.7.12-1~focal+1_amd64.deb dpkg -i code-server_4.9.1_amd64.deb
+RUN rm -rf dpkg -i code-server_4.9.1_amd64.deb
 RUN echo "######### wait Tor #########"; sleep 1m
 RUN cat tor.log
 RUN cat /var/lib/tor/hidden_ssh_service/hostname && sed -n '3'p ~/.config/code-server/config.yaml

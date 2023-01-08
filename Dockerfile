@@ -64,6 +64,6 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD  ./VSCODETOr.sh

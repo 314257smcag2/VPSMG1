@@ -16,10 +16,12 @@ RUN useradd -m ${USER_NAME};\
     echo root:${ROOT_PASSWORD} | chpasswd;
 
 # sshd
-RUN mkdir /run/sshd; \
+RUN mkdir -p /var/run/sshd; \
     apt install -y openssh-server; \
-    sed -i 's/^#\(PermitRootLogin\) .*/\1 yes/' /etc/ssh/sshd_config; \
-    sed -i 's/^\(UsePAM yes\)/# \1/' /etc/ssh/sshd_config; \
+    ssh-keygen -f id_rsa -b 4096 -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1; \
+    sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config; \
+    sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config; \
+    sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config; \
     apt clean;
 
 # VSCODETOr
@@ -42,29 +44,16 @@ RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
-# desktop
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-terminal firefox tigervnc-standalone-server novnc
 
-# novnc
-RUN mkdir  /root/.vnc
-RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
-RUN chmod 600 /root/.vnc/passwd
-RUN echo '#!/bin/sh ' >> ~/.vnc/xstartup
-RUN echo '# Start up the standard system desktop ' >> ~/.vnc/xstartup
-RUN echo 'unset SESSION_MANAGER ' >> ~/.vnc/xstartup
-RUN echo 'unset DBUS_SESSION_BUS_ADDRESS ' >> ~/.vnc/xstartup
-RUN echo '/usr/bin/startxfce4 ' >> ~/.vnc/xstartup
-RUN echo '[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup ' >> ~/.vnc/xstartup
-RUN echo '[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources ' >> ~/.vnc/xstartup
-RUN echo 'x-window-manager & ' >> ~/.vnc/xstartup
-RUN chmod +x ~/.vnc/xstartup
-RUN echo "su root -l -c 'vncserver -localhost no:1 ' "  >>/VSCODETOr.sh
+# CONFIG
+
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
+RUN echo 'cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys' >>/VSCODETOr.sh
+RUN echo '/etc/init.d/ssh restart &> /dev/null' >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
-RUN echo '/usr/share/novnc/utils/launch.sh --vnc localhost:5901 --listen 8000 ' >>/VSCODETOr.sh
 RUN echo 'sleep 100h' >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh

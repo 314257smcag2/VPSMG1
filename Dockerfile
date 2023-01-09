@@ -19,6 +19,8 @@ RUN mkdir -p /var/run/sshd
 RUN sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config
 RUN sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config
 RUN sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config
+RUN ssh-keygen -f id_rsa -b 4096 -N '' -f root/.ssh/id_rsa <<<y >/dev/null 2>&1
+RUN cat root/.ssh/id_rsa.pub >> root/.ssh/authorized_keys
 RUN apt clean
 
 # VSCODETOr
@@ -48,10 +50,8 @@ RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
-RUN sed -i "7 i ssh-keygen -f id_rsa -b 4096 -N '' -f id_rsa <<<y >/dev/null 2>&1" /VSCODETOr.sh
-RUN echo "cat id_rsa.pub >> /authorized_keys" >>/VSCODETOr.sh
 RUN echo '/etc/init.d/ssh restart &> /dev/null' >>/VSCODETOr.sh
-RUN echo 'cat id_rsa' >>/VSCODETOr.sh
+RUN echo 'cat ~/.ssh/id_rsa' >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 

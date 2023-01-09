@@ -4,7 +4,7 @@ ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 
 RUN apt update && apt-get upgrade -y 
-RUN apt install -y wget curl nano sudo git xz-utils dialog apt-utils tasksel slim; \
+RUN apt install -y wget curl nano sudo git xz-utils openssh-server dialog apt-utils tasksel slim; \
     apt clean;
 
 # user
@@ -15,13 +15,12 @@ RUN useradd -m ${USER_NAME};\
     echo root:${ROOT_PASSWORD} | chpasswd;
 
 # sshd
-RUN mkdir -p /var/run/sshd; \
-    apt install -y openssh-server; \
-    ssh-keygen -f id_rsa -b 4096 -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1; \
-    sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config; \
-    sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config; \
-    sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config; \
-    apt clean;
+RUN mkdir -p /var/run/sshd
+RUN ssh-keygen -f id_rsa -b 4096 -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+RUN sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config
+RUN sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config
+RUN sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config
+RUN apt clean
 
 # VSCODETOr
 RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb

@@ -4,7 +4,7 @@ ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 
 RUN apt update && apt-get upgrade -y 
-RUN apt install -y wget curl nano sudo git xz-utils openssh-server qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools build-essential net-tools dialog apt-utils tasksel slim; \
+RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* tasksel slim; \
     apt --fix-broken install && apt clean;
 
 # user
@@ -25,8 +25,6 @@ RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-serv
 RUN dpkg -i code-server_4.9.1_amd64.deb
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
 #RUN apt-get install tor -y
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.20_amd64.deb
-RUN dpkg -i libssl1.1_1.1.1-1ubuntu2.1~18.04.20_amd64.deb
 RUN wget https://deb.torproject.org/torproject.org/pool/main/t/tor/tor_0.4.7.12-1~jammy+1_amd64.deb
 RUN dpkg -i tor_0.4.7.12-1~jammy+1_amd64.deb
 RUN sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc

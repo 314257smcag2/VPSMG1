@@ -2,7 +2,6 @@ FROM ubuntu:22.04
 
 ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
-ENV Passphrase SHAKUGAN
 
 RUN apt update && apt-get upgrade -y 
 RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils tasksel slim; \
@@ -19,15 +18,11 @@ RUN useradd -m ${USER_NAME};\
 RUN mkdir -p /var/run/sshd
 RUN sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config
 RUN sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config
-RUN sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config
-RUN ssh-keygen -q -b 4096 -N ${Passphrase} -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
-RUN cat root/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 RUN apt clean
 
 # VSCODETOr
 RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
 RUN dpkg -i code-server_4.9.1_amd64.deb
-RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
 RUN apt-get install tor -y
 RUN sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc
@@ -40,24 +35,22 @@ RUN sed -i '73s\#HiddenServicePort 22 127.0.0.1:22\HiddenServicePort 22 127.0.0.
 RUN sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
-RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
 
 # CONFIG
-
+RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
+RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
-RUN echo '/etc/init.d/ssh restart &> /dev/null' >>/VSCODETOr.sh
-RUN echo 'cat ~/.ssh/id_rsa' >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD  ./VSCODETOr.sh

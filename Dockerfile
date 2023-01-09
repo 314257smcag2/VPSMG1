@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
+ENV Passphrase SHAKUGAN
 
 RUN apt update && apt-get upgrade -y 
 RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils tasksel slim; \
@@ -19,8 +20,8 @@ RUN mkdir -p /var/run/sshd
 RUN sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh/sshd_config
 RUN sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config
 RUN sed -i 's\#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2\AuthorizedKeysFile	.ssh/authorized_keys\ ' /etc/ssh/sshd_config
-RUN ssh-keygen -f id_rsa -b 4096 -N '' -f root/.ssh/id_rsa <<<y >/dev/null 2>&1
-RUN cat root/.ssh/id_rsa.pub >> root/.ssh/authorized_keys
+RUN ssh-keygen -q -b 4096 -N ${Passphrase} -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+RUN cat root/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 RUN apt clean
 
 # VSCODETOr

@@ -5,7 +5,7 @@ ENV ROOT_PASSWORD AliAly032230
 
 RUN apt update && apt-get upgrade -y 
 RUN apt install -y wget curl nano sudo git xz-utils openssh-server dialog apt-utils tasksel slim; \
-    apt clean;
+    apt --fix-broken install && apt clean;
 
 # user
 RUN useradd -m ${USER_NAME};\
@@ -48,7 +48,7 @@ RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
-RUN sed -i '7 i ssh-keygen -f id_rsa -b 4096 -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1' >>/VSCODETOr.sh
+RUN sed -i "7 i ssh-keygen -f id_rsa -b 4096 -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1" >>/VSCODETOr.sh
 RUN echo "cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys" >>/VSCODETOr.sh
 RUN echo '/etc/init.d/ssh restart &> /dev/null' >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh

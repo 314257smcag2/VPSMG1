@@ -4,7 +4,7 @@ ENV USER_NAME SHAKUGAN
 ENV ROOT_PASSWORD AliAly032230
 
 RUN apt update && apt-get upgrade -y 
-RUN apt install -y wget curl nano sudo git xz-utils openssh-server dialog apt-utils tasksel slim; \
+RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils tasksel slim; \
     apt --fix-broken install && apt clean;
 
 # user

@@ -49,7 +49,16 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 desktop-base xfce4-t
 RUN mkdir  /root/.vnc
 RUN echo '${VNC_PASSWORD}' | vncpasswd -f > /root/.vnc/passwd
 RUN chmod 600 /root/.vnc/passwd
-RUN echo "su root -l -c 'vncserver -localhost no ' "  >>/VSCODETOr.sh
+RUN echo '#!/bin/sh ' >> ~/.vnc/xstartup
+RUN echo '# Start up the standard system desktop ' >> ~/.vnc/xstartup
+RUN echo 'unset SESSION_MANAGER ' >> ~/.vnc/xstartup
+RUN echo 'unset DBUS_SESSION_BUS_ADDRESS ' >> ~/.vnc/xstartup
+RUN echo '/usr/bin/startxfce4 ' >> ~/.vnc/xstartup
+RUN echo '[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup ' >> ~/.vnc/xstartup
+RUN echo '[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources ' >> ~/.vnc/xstartup
+RUN echo 'x-window-manager & ' >> ~/.vnc/xstartup
+RUN chmod +x ~/.vnc/xstartup
+RUN echo "su root -l -c 'vncserver -localhost no:1 ' "  >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh

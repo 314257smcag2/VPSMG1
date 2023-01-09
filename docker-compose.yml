@@ -1,6 +1,6 @@
 services:
   vpsmg1:
     build: .
-    shm_size: 2gb
+    shm_size: 3gb
     ports:
       - "80:80"

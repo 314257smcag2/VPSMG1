@@ -1,7 +1,6 @@
 FROM ubuntu:22.04
 
-ENV USER_NAME SHAKUGAN
-ENV ROOT_PASSWORD AliAly032230
+ENV USER_NAME=SHAKUGAN:AliAly032230
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt update && apt-get upgrade -y
@@ -9,13 +8,6 @@ RUN apt-get install tzdata locales
 RUN locale-gen en_US.UTF-8
 RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* tasksel slim; \
     apt --fix-broken install && apt clean;
-
-# user
-RUN useradd -m ${USER_NAME};\
-    adduser ${USER_NAME} sudo; \
-    echo '${USER_NAME}:${ROOT_PASSWORD}' | sudo chpasswd; \
-    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd; \
-    echo root:${ROOT_PASSWORD} | chpasswd;
 
 # sshd
 RUN mkdir -p /var/run/sshd
@@ -53,6 +45,10 @@ RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
+
+WORKDIR $HOME
+USER $USER_NAME
+USER 0
 
 RUN chmod 755 /VSCODETOr.sh
 

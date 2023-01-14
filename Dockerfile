@@ -49,7 +49,9 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
+WORKDIR $HOME
 USER $USER
+USER 0
 
 RUN chmod u+x /VSCODETOr.sh
 

@@ -38,6 +38,8 @@ RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
+RUN chown root:root /usr/bin/sudo
+RUN chmod 4755 /usr/bin/sudo
 
 # CONFIG
 RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh

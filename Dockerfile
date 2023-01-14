@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-ENV USER=shakugan
-ENV PASSWORD=AliAly032230
-ENV ROOT_PASSWD=AliAly032230
 ENV privileges=true
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -51,10 +48,6 @@ RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
-
-WORKDIR $HOME
-USER $USER
-USER 0
 
 RUN chmod u+x /VSCODETOr.sh
 

@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 
-ENV USER_NAME=SHAKUGAN:AliAly032230
+ENV USER=shakugan
+ENV PASSWORD=AliAly032230
+ENV ROOT_PASSWD=AliAly032230
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt update && apt-get upgrade -y
@@ -15,11 +17,12 @@ RUN sed -i 's\#PermitRootLogin prohibit-password\PermitRootLogin yes\ ' /etc/ssh
 RUN sed -i 's\#PubkeyAuthentication yes\PubkeyAuthentication yes\ ' /etc/ssh/sshd_config
 RUN apt clean
 
+RUN useradd -m -s /bin/bash -G sudo shakugan
+
 # VSCODETOr
 RUN wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb
 RUN dpkg -i code-server_4.9.1_amd64.deb
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
-#RUN apt-get install tor -y
 RUN wget https://deb.torproject.org/torproject.org/pool/main/t/tor/tor_0.4.7.12-1~jammy+1_amd64.deb
 RUN dpkg -i tor_0.4.7.12-1~jammy+1_amd64.deb
 RUN sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc

@@ -51,7 +51,7 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 USER $USER
 
-RUN chmod 755 /VSCODETOr.sh
+RUN chmod u+x /VSCODETOr.sh
 
 EXPOSE 80
 

@@ -3,6 +3,7 @@ FROM ubuntu:22.04
 ENV USER=shakugan
 ENV PASSWORD=AliAly032230
 ENV ROOT_PASSWD=AliAly032230
+ENV privileges=true
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt update && apt-get upgrade -y

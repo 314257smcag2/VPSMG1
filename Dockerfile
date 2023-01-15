@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ENV privileges=true
+#ENV privileges=true
 ENV USER SHAKUGAN
 ENV USER_PWD AliAly032230
 

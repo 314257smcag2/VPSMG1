@@ -50,8 +50,8 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
-RUN chmod u+x /VSCODETOr.sh
+RUN chmod 755 /VSCODETOr.sh
 
 USER ${USER}
 EXPOSE 80
-CMD  sudo ./VSCODETOr.sh
+CMD  ./VSCODETOr.sh

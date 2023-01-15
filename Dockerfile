@@ -51,9 +51,9 @@ RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh
+RUN mv VSCODETOr.sh home/${USER}/VSCODETOr.sh
 
 USER ${USER}
-COPY VSCODETOr.sh home/${USER}/VSCODETOr.sh
 WORKDIR /home/${USER}
 EXPOSE 80
 CMD  ./VSCODETOr.sh

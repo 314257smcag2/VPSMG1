@@ -1,15 +1,15 @@
 FROM ubuntu:22.04
 
 ENV privileges=true
-ENV NEWUSER SHAKUGAN
-ENV NEWUSER_PASSWORD AliAly032230
-RUN useradd ${NEWUSER} && echo ${NEWUSER_PASSWORD} | passwd ${NEWUSER} --stdin
+RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
+ENV USER SHAKUGAN
+ENV USER_PWD AliAly032230
+RUN useradd -m ${USER} && echo "${USER}:USER_PWD" | chpasswd && adduser ${USER} sudo
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-RUN apt update && apt-get upgrade -y
 RUN apt-get install tzdata locales
 RUN locale-gen en_US.UTF-8
-RUN apt install -y wget curl nano sudo git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* tasksel slim; \
+RUN apt install -y wget curl nano git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* tasksel slim; \
     apt --fix-broken install && apt clean;
 
 # sshd
@@ -52,6 +52,6 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN chmod u+x /VSCODETOr.sh
 
+USER ${USER}
 EXPOSE 80
-
 CMD  ./VSCODETOr.sh

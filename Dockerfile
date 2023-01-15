@@ -7,9 +7,7 @@ ENV USER_PWD AliAly032230
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 RUN useradd -m ${USER} && echo "${USER}:${USER_PWD}" | chpasswd && adduser ${USER} sudo
 RUN usermod -a -G sudo ${USER}
-RUN chown root:root /usr/bin/sudo
-RUN chown ${USER}:${USER} /usr/bin/sudo
-RUN chmod 4755 /usr/bin/sudo
+
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt-get install tzdata locales
@@ -48,7 +46,7 @@ RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr
 RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
-RUN echo "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
+RUN echo "sed -n '1'p /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
 RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh

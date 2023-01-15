@@ -5,6 +5,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 ENV USER SHAKUGAN
 ENV USER_PWD AliAly032230
 RUN useradd -m ${USER} && echo "${USER}:${USER_PWD}" | chpasswd && adduser ${USER} sudo
+RUN usermod -a -G sudo ${USER}
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt-get install tzdata locales
@@ -38,7 +39,7 @@ RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
 RUN chown root:root /usr/bin/sudo
-RUN chown ${USER}:${USER_PWD} /usr/bin/sudo
+RUN chown ${USER}:${USER} /usr/bin/sudo
 RUN chmod 4755 /usr/bin/sudo
 
 

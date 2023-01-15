@@ -41,8 +41,8 @@ RUN chown root:root /usr/bin/sudo
 RUN chmod 4755 /usr/bin/sudo
 
 # CONFIG
-RUN echo "sudo code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
-RUN echo "sudo tor > tor.log &"  >>/VSCODETOr.sh
+RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
+RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 1m' >>/VSCODETOr.sh
 RUN echo "sudo cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh

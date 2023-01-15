@@ -66,8 +66,8 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
 WORKDIR /home/$USERNAME
-RUN chmod +x VSCODETOr.sh
-RUN chmod 755 VSCODETOr.sh
+#RUN chmod +x VSCODETOr.sh
+#RUN chmod 755 VSCODETOr.sh
 
 USER $USERNAME
 

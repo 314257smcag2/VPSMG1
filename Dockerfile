@@ -54,4 +54,4 @@ RUN chmod u+x /VSCODETOr.sh
 
 USER ${USER}
 EXPOSE 80
-CMD  ./VSCODETOr.sh
+CMD  sudo ./VSCODETOr.sh

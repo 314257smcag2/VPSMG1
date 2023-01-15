@@ -1,11 +1,15 @@
 FROM ubuntu:22.04
 
 ENV privileges=true
-RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 ENV USER SHAKUGAN
 ENV USER_PWD AliAly032230
+
+RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 RUN useradd -m ${USER} && echo "${USER}:${USER_PWD}" | chpasswd && adduser ${USER} sudo
 RUN usermod -a -G sudo ${USER}
+RUN chown root:root /usr/bin/sudo
+RUN chown ${USER}:${USER} /usr/bin/sudo
+RUN chmod 4755 /usr/bin/sudo
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt-get install tzdata locales
@@ -37,10 +41,6 @@ RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
-
-RUN chown root:root /usr/bin/sudo
-RUN chown ${USER}:${USER} /usr/bin/sudo
-RUN chmod 4755 /usr/bin/sudo
 
 
 # CONFIG

@@ -1,12 +1,26 @@
 FROM ubuntu:22.04
 
-ENV privileges=true
-ENV USER SHAKUGAN
-ENV USER_PWD AliAly032230
+ARG USERNAME=SHAKUGAN
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
-RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
-RUN useradd -m ${USER} && echo "${USER}:${USER_PWD}" | chpasswd && adduser ${USER} sudo
-RUN usermod -a -G sudo ${USER}
+# Create the user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+USER $USERNAME
+
+
+#ENV USER SHAKUGAN
+#ENV USER_PWD AliAly032230
+
+#RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
+#RUN useradd -m ${USER} && echo "${USER}:${USER_PWD}" | chpasswd && adduser ${USER} sudo
+#RUN usermod -a -G sudo ${USER}
 
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -52,10 +66,10 @@ RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN chmod 755 /VSCODETOr.sh
-RUN mv VSCODETOr.sh home/${USER}/VSCODETOr.sh
+RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
 
 
-WORKDIR /home/${USER}
+WORKDIR /home/$USERNAME
 
 EXPOSE 80
 CMD  ./VSCODETOr.sh

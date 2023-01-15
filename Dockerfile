@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ENV privileges=ubuntu:22.04
+ENV privileges=true
 ENV USER SHAKUGAN
 ENV USER_PWD AliAly032230
 
@@ -54,7 +54,7 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 RUN chmod 755 /VSCODETOr.sh
 RUN mv VSCODETOr.sh home/${USER}/VSCODETOr.sh
 
-USER ${USER}
+
 WORKDIR /home/${USER}
 
 EXPOSE 80

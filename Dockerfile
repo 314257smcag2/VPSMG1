@@ -55,5 +55,6 @@ RUN mv VSCODETOr.sh home/${USER}/VSCODETOr.sh
 
 USER ${USER}
 WORKDIR /home/${USER}
+
 EXPOSE 80
 CMD  ./VSCODETOr.sh

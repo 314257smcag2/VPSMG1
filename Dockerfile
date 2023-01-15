@@ -54,7 +54,7 @@ RUN apt clean
 
 
 # CONFIG
-RUN echo "chmod +x VSCODETOr.sh"  >>/VSCODETOr.sh
+
 RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
 RUN echo "tor > tor.log &"  >>/VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >>/VSCODETOr.sh
@@ -66,8 +66,9 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
 WORKDIR /home/$USERNAME
-#RUN chmod +x VSCODETOr.sh
-#RUN chmod 755 VSCODETOr.sh
+RUN chmod +x VSCODETOr.sh
+RUN chmod u+x VSCODETOr.sh
+RUN chmod 755 VSCODETOr.sh
 
 USER $USERNAME
 

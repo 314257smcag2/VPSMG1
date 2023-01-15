@@ -1,6 +1,9 @@
 FROM ubuntu:22.04
 
 ENV privileges=true
+ENV NEWUSER SHAKUGAN
+ENV NEWUSER_PASSWORD AliAly032230
+RUN useradd ${NEWUSER} && echo ${NEWUSER_PASSWORD} | passwd ${NEWUSER} --stdin
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt update && apt-get upgrade -y

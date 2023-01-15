@@ -70,7 +70,7 @@ RUN chmod +x VSCODETOr.sh
 RUN chmod u+x VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh
 
-USER $USERNAME
+#USER $USERNAME
 
 
 EXPOSE 80

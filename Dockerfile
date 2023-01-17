@@ -14,8 +14,8 @@ ARG USER_PWD=AliAly032230
 #    && chmod 0440 /etc/sudoers.d/$USERNAME
 
 
-#ENV USER SHAKUGAN
-#ENV USER_PWD AliAly032230
+ENV USER SHAKUGAN
+ENV USER_PWD AliAly032230
 
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 RUN useradd -m $USERNAME && echo "$USERNAME:$USER_PWD" | chpasswd && adduser $USERNAME sudo
@@ -25,7 +25,7 @@ RUN usermod -a -G sudo $USERNAME
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN apt-get install tzdata locales
 RUN locale-gen en_US.UTF-8
-RUN apt install -y wget curl nano git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* tasksel slim; \
+RUN apt install -y wget curl nano git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* ; \
     apt --fix-broken install && apt clean;
 
 # sshd
@@ -67,11 +67,11 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
 RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
 WORKDIR /home/$USERNAME
-RUN chmod +x VSCODETOr.sh
-RUN chmod u+x VSCODETOr.sh
-RUN chmod 755 VSCODETOr.sh
+#RUN chmod +x VSCODETOr.sh
+RUN chmod u+r VSCODETOr.sh
+#RUN chmod 755 VSCODETOr.sh
 
-#USER $USERNAME
+USER $USERNAME
 
 
 EXPOSE 80

@@ -50,6 +50,7 @@ RUN sed -i '73s\#HiddenServicePort 22 127.0.0.1:22\HiddenServicePort 22 127.0.0.
 RUN sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc
 RUN sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc
 RUN sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc
+RUN sed -i '77 i HiddenServicePort 9000 127.0.0.1:9000' /etc/tor/torrc
 RUN rm -rf code-server_4.9.1_amd64.deb
 RUN apt clean
 
@@ -68,10 +69,10 @@ RUN echo 'sleep 90d' >>/VSCODETOr.sh
 RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
 WORKDIR /home/$USERNAME
 #RUN chmod +x VSCODETOr.sh
-RUN chmod u+r VSCODETOr.sh
-#RUN chmod 755 VSCODETOr.sh
+#RUN chmod u+r VSCODETOr.sh
+RUN chmod 755 VSCODETOr.sh
 
-USER $USERNAME
+#USER $USERNAME
 
 
 EXPOSE 80

@@ -1,9 +1,9 @@
 FROM ubuntu:22.04
 
-ARG USERNAME=SHAKUGAN
+#ARG USERNAME=SHAKUGAN
 #ARG USER_UID=1000
 #ARG USER_GID=$USER_UID
-ARG USER_PWD=AliAly032230
+#ARG USER_PWD=AliAly032230
 
 # Create the user
 #RUN groupadd --gid $USER_GID $USERNAME \
@@ -14,12 +14,12 @@ ARG USER_PWD=AliAly032230
 #    && chmod 0440 /etc/sudoers.d/$USERNAME
 
 
-ENV USER SHAKUGAN
-ENV USER_PWD AliAly032230
+#ENV USER SHAKUGAN
+#ENV USER_PWD AliAly032230
 
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
-RUN useradd -m $USERNAME && echo "$USERNAME:$USER_PWD" | chpasswd && adduser $USERNAME sudo
-RUN usermod -a -G sudo $USERNAME
+#RUN useradd -m $USERNAME && echo "$USERNAME:$USER_PWD" | chpasswd && adduser $USERNAME sudo
+#RUN usermod -a -G sudo $USERNAME
 
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -66,8 +66,8 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
-RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
-WORKDIR /home/$USERNAME
+#RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
+#WORKDIR /home/$USERNAME
 #RUN chmod +x VSCODETOr.sh
 #RUN chmod u+r VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh

@@ -21,7 +21,7 @@ MAINTAINER SHAKUGAN <shakugan@disbox.net>
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
 RUN usermod -a -G sudo $USER_NAME
-RUN echo root:ROOT_PWD| chpasswd
+RUN echo root:$ROOT_PWD| chpasswd
 
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime

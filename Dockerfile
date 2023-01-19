@@ -18,8 +18,9 @@ FROM ubuntu:22.04
 #ENV USER_PWD AliAly032230
 
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
-#RUN useradd -m $USERNAME && echo "$USERNAME:$USER_PWD" | chpasswd && adduser $USERNAME sudo
-#RUN usermod -a -G sudo $USERNAME
+RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
+RUN usermod -a -G sudo $USER_NAME
+RUN echo root:ROOT_PWD| chpasswd
 
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -66,14 +67,14 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
-#RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
-#WORKDIR /home/$USERNAME
-#RUN chmod +x VSCODETOr.sh
-#RUN chmod u+r VSCODETOr.sh
+RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
+WORKDIR /home/$USERNAME
+RUN chmod +x VSCODETOr.sh
+RUN chmod u+r VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh
 
-#USER $USERNAME
+USER $USER_NAME
 
 
-EXPOSE 80
+EXPOSE 8080
 CMD  ./VSCODETOr.sh

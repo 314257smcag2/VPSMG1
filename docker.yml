@@ -1,0 +1,1 @@
+docker run --privileged --shm-size 20g -d -p 8080:10000 -e USER_PWD=AliAly032230 -e USER_NAME=shakugan -e ROOT_PWD=AliAly032230

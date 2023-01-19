@@ -1,6 +1,10 @@
+version: '3'
 services:
-  vpsmg1:
+  vscodetor:
     build: .
-    shm_size: 3gb
     ports:
-      - "80:80"
+      - "8080:8080"
+    environment:
+      - "USER_PWD=AliAly032230"
+      - "USER_NAME=shakugan"
+      - "ROOT_PWD=AliAly032230"

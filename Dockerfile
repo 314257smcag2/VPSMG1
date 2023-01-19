@@ -1,5 +1,3 @@
-docker run --privileged --shm-size 20g -d-p 8080:10000 -e USER_PWD=AliAly032230 -e USER_NAME=shakugan -e ROOT_PWD=AliAly032230
-
 FROM ubuntu:22.04
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
@@ -14,9 +12,9 @@ MAINTAINER SHAKUGAN <shakugan@disbox.net>
 # Create the user
 
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
-RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
-RUN usermod -a -G sudo $USER_NAME
-RUN echo root:$ROOT_PWD| chpasswd
+#RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
+#RUN usermod -a -G sudo $USER_NAME
+#RUN echo root:$ROOT_PWD| chpasswd
 
 
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -63,10 +61,10 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
-RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
-WORKDIR /home/$USER_NAME
-RUN chmod +x VSCODETOr.sh
-RUN chmod u+r VSCODETOr.sh
+#RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
+#WORKDIR /home/$USER_NAME
+#RUN chmod +x VSCODETOr.sh
+#RUN chmod u+r VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh
 
 #USER $USER_NAME

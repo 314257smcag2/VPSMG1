@@ -1,22 +1,14 @@
 FROM ubuntu:22.04
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
-#ARG USERNAME=SHAKUGAN
-#ARG USER_UID=1000
-#ARG USER_GID=$USER_UID
-#ARG USER_PWD=AliAly032230
+ARG USER_NAME=shakugan
+ARG USER_PWD=AliAly032230
+ARG ROOT_PWD=AliAly032230
+ENV USER_NAME shakugan
+ENV USER_PWD AliAly032230
+ENV ROOT_PWD AliAly032230
 
 # Create the user
-#RUN groupadd --gid $USER_GID $USERNAME \
-#    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-#    && apt-get update \
-#    && apt-get install -y sudo \
-#    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-#    && chmod 0440 /etc/sudoers.d/$USERNAME
-
-
-#ENV USER SHAKUGAN
-#ENV USER_PWD AliAly032230
 
 RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
 RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo

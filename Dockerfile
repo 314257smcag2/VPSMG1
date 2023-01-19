@@ -61,13 +61,13 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >>/VSCODETOr.sh
 RUN echo 'sleep 90d' >>/VSCODETOr.sh
 
-RUN mv VSCODETOr.sh home/$USERNAME/VSCODETOr.sh
-WORKDIR /home/$USERNAME
+RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
+WORKDIR /home/$USER_NAME
 RUN chmod +x VSCODETOr.sh
 RUN chmod u+r VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh
 
-USER $USER_NAME
+#USER $USER_NAME
 
 
 EXPOSE 8080

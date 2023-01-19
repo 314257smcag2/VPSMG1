@@ -1,6 +1,6 @@
-docker run --privileged --shm-size 20g -d-p 8080:10000 -e USER_PWD=AliAly032230 -e USER_NAME=shakugan -e ROOT_PWD=AliAly032230 -e ubuntu:22.04
+docker run --privileged --shm-size 20g -d-p 8080:10000 -e USER_PWD=AliAly032230 -e USER_NAME=shakugan -e ROOT_PWD=AliAly032230
 
-#FROM ubuntu:22.04
+FROM ubuntu:22.04
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
 #ARG USER_NAME=shakugan

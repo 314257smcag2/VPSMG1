@@ -3,8 +3,16 @@ services:
   vscodetor:
     build: .
     ports:
-      - "8080:8080"
+      - "8080:10000"
     environment:
-      - "USER_PWD=AliAly032230"
-      - "USER_NAME=shakugan"
-      - "ROOT_PWD=AliAly032230"
+      - USER_PWD=AliAly032230
+      - USER_NAME=shakugan
+      - ROOT_PWD=AliAly032230
+	    - VNC_PASSWD=AliAly032230
+      - PORT=10000 
+      - AUDIO_PORT=1699 
+      - WEBSOCKIFY_PORT=6900 
+      - VNC_PORT=5900 
+      - SCREEN_WIDTH=1024 
+      - SCREEN_HEIGHT=768 
+      - SCREEN_DEPTH=24 

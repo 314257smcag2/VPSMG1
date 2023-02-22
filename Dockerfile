@@ -13,7 +13,7 @@ MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
 # Create the user
 
-RUN apt-get update && apt-get upgrade -y && apt-get -y install sudo
+RUN sudo apt-get update && sudo apt-get upgrade -y
 RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
 RUN usermod -a -G sudo $USER_NAME
 RUN echo root:$ROOT_PWD| chpasswd

@@ -34,7 +34,7 @@ RUN sudo apt clean
 # VSCODETOr
 RUN sudo wget https://github.com/coder/code-server/releases/download/v4.10.0/code-server_4.10.0_amd64.deb
 RUN sudo dpkg -i code-server_4.10.0_amd64.deb
-RUN sudo wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
+RUN sudo wget -O - https://deb.nodesource.com/setup_18.x | sudo -E bash && sudo apt-get -y install nodejs && sudo npm i -g updates
 RUN sudo wget https://deb.torproject.org/torproject.org/pool/main/t/tor/tor_0.4.7.13-1~jammy+1_amd64.deb
 RUN sudo dpkg -i tor_0.4.7.13-1~jammy+1_amd64.deb
 RUN sudo sed -i 's\#SocksPort 9050\SocksPort 9050\ ' /etc/tor/torrc

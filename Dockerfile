@@ -56,14 +56,14 @@ RUN sudo apt clean
 # CONFIG
 
 RUN sudo touch VSCODETOr.sh
-RUN sudo bash -c  "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &"  >>/VSCODETOr.sh
-RUN sudo bash -c  "tor > tor.log &"  >>/VSCODETOr.sh
-RUN sudo bash -c  'echo "######### wait Tor #########"' >>/VSCODETOr.sh
-RUN sudo bash -c  'sleep 1m' >>/VSCODETOr.sh
-RUN sudo bash -c  "cat /var/lib/tor/hidden_service/hostname" >>/VSCODETOr.sh
-RUN sudo bash -c  "sed -n '3'p ~/.config/code-server/config.yaml" >>/VSCODETOr.sh
-RUN sudo bash -c  'echo "######### OK #########"' >>/VSCODETOr.sh
-RUN sudo bash -c  'sleep 90d' >>/VSCODETOr.sh
+RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &" | sudo tee --append VSCODETOr.sh
+RUN echo "tor > tor.log &" | sudo tee --append VSCODETOr.sh
+RUN echo 'echo "######### wait Tor #########"' | sudo tee --append VSCODETOr.sh
+RUN echo 'sleep 1m' | sudo tee --append VSCODETOr.sh
+RUN echo "cat /var/lib/tor/hidden_service/hostname" | sudo tee --append VSCODETOr.sh
+RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" | sudo tee --append VSCODETOr.sh
+RUN echo 'echo "######### OK #########"' | sudo tee --append VSCODETOr.sh
+RUN echo 'sleep 90d' | sudo tee --append VSCODETOr.sh
 
 #RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
 #WORKDIR /home/$USER_NAME

@@ -8,7 +8,7 @@ services:
       - USER_PWD=AliAly032230
       - USER_NAME=shakugan
       - ROOT_PWD=AliAly032230
-	    - VNC_PASSWD=AliAly032230
+      - VNC_PASSWD=AliAly032230
       - PORT=10000 
       - AUDIO_PORT=1699 
       - WEBSOCKIFY_PORT=6900 

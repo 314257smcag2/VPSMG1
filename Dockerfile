@@ -20,7 +20,7 @@ RUN sudo apt-get update && sudo apt-get upgrade -y
 
 
 RUN sudo ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-RUN sudo apt-get install tzdata locales
+RUN sudo apt-get install -y tzdata locales 
 RUN sudo locale-gen en_US.UTF-8
 RUN sudo apt install -y wget curl nano git xz-utils openssh-server build-essential net-tools dialog apt-utils libevent* ; \
     apt --fix-broken install && sudo apt clean;

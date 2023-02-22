@@ -67,9 +67,9 @@ RUN echo 'sleep 90d' | sudo tee --append VSCODETOr.sh
 
 #RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
 #WORKDIR /home/$USER_NAME
-RUN chmod +x VSCODETOr.sh
-RUN chmod u+r VSCODETOr.sh
-RUN chmod 755 VSCODETOr.sh
+RUN sudo chmod +x VSCODETOr.sh
+RUN sudo chmod u+r VSCODETOr.sh
+RUN sudo chmod 755 VSCODETOr.sh
 
 #USER $USER_NAME
 

@@ -1,4 +1,5 @@
-FROM ubuntu:22.04
+#FROM ubuntu:22.04
+FROM thuonghai2711/nomachine-ubuntu-desktop:mate
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
 #ARG USER_NAME=shakugan

@@ -1,5 +1,6 @@
 #FROM ubuntu:22.04
-FROM thuonghai2711/nomachine-ubuntu-desktop:mate
+#FROM thuonghai2711/nomachine-ubuntu-desktop:mate
+FROM thuonghai2711/ubuntu-novnc-pulseaudio:22.04
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
 #ARG USER_NAME=shakugan

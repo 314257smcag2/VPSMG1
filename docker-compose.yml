@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   vscodetor:
-  privileged: true
+    privileged: true
     build: .
     ports:
       - "8080:10000"

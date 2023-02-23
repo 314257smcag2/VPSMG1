@@ -75,4 +75,4 @@ RUN sudo chmod 755 VSCODETOr.sh
 
 
 EXPOSE 8080
-CMD  ./VSCODETOr.sh
+CMD  sudo ./VSCODETOr.sh

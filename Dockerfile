@@ -3,19 +3,19 @@
 FROM thuonghai2711/ubuntu-novnc-pulseaudio:22.04
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
 
-#ARG USER_NAME=shakugan
-#ARG USER_PWD=AliAly032230
+ARG USER_NAME=shakugan
+ARG USER_PWD=AliAly032230
 #ARG ROOT_PWD=AliAly032230
 
-#ENV USER_NAME shakugan
-#ENV USER_PWD AliAly032230
+ENV USER_NAME shakugan
+ENV USER_PWD AliAly032230
 #ENV ROOT_PWD AliAly032230
 
 # Create the user
 
 RUN sudo apt-get update && sudo apt-get upgrade -y
-#RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
-#RUN usermod -a -G sudo $USER_NAME
+RUN sudo useradd -m $USER_NAME && sudo echo "$USER_NAME:$USER_PWD" | chpasswd && sudo adduser $USER_NAME sudo
+RUN sudo usermod -a -G sudo $USER_NAME
 #RUN echo root:$ROOT_PWD| chpasswd
 
 
@@ -65,14 +65,14 @@ RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" | sudo tee --append VSC
 RUN echo 'echo "######### OK #########"' | sudo tee --append VSCODETOr.sh
 RUN echo 'sleep 90d' | sudo tee --append VSCODETOr.sh
 
-#RUN mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
-#WORKDIR /home/$USER_NAME
+RUN sudo mv VSCODETOr.sh home/$USER_NAME/VSCODETOr.sh
+WORKDIR /home/$USER_NAME
 RUN sudo chmod +x VSCODETOr.sh
 RUN sudo chmod u+r VSCODETOr.sh
 RUN sudo chmod 755 VSCODETOr.sh
 
-#USER $USER_NAME
+USER $USER_NAME
 
 
 EXPOSE 8080
-CMD  sudo ./VSCODETOr.sh
+CMD  ./VSCODETOr.sh

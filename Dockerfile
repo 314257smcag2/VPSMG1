@@ -39,6 +39,7 @@ RUN apt clean
 
 RUN wget https://github.com/coder/code-server/releases/download/v4.10.0/code-server_4.10.0_amd64.deb
 RUN dpkg -i code-server_4.10.0_amd64.deb
+RUN touch ~/.config/code-server/config.yaml
 RUN echo "password: AliAly032230" >> ~/.config/code-server/config.yaml
 
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates

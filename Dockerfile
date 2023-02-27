@@ -64,7 +64,7 @@ RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >> /VSCODETOr.sh
 RUN echo "echo 'sleep 1m'" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
-RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >> /VSCODETOr.sh
+#RUN echo "sed -n '3'p ~/.config/code-server/config.yaml" >> /VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >> /VSCODETOr.sh
 RUN echo "groupadd -r $USER -g 433" >> /VSCODETOr.sh
 RUN echo 'useradd -u 431 -r -g $USER -d /home/$USER -s /bin/bash -c "$USER" $USER' >> /VSCODETOr.sh

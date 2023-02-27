@@ -21,6 +21,8 @@ RUN apt-get update -y && apt-get install -y vim xterm pulseaudio cups curl libgc
 ENV NOMACHINE_PACKAGE_NAME nomachine_8.4.2_1_amd64.deb
 ENV NOMACHINE_BUILD 8.4
 ENV NOMACHINE_MD5 35d9c2af67707a9e7cd764e3aeda4624
+RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
+&& echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb && sed -i "s|#EnableClipboard both|EnableClipboard both |g" /usr/NX/etc/server.cfg
 
 # Install the mate-desktop-enviroment version you would like to have
 RUN apt-get update -y && \

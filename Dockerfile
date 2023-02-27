@@ -67,9 +67,6 @@ RUN echo "echo 'sleep 1m'" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >> /VSCODETOr.sh
 RUN echo "useradd -m $USER " >> /VSCODETOr.sh
-RUN echo "adduser $USER sudo" >> /VSCODETOr.sh
-RUN echo "mkdir /home/$USER" >> /VSCODETOr.sh
-RUN echo "chown -R $USER:$USER /home/$USER" >> /VSCODETOr.sh
 RUN echo "echo '$USER:$PASSWORD' | sudo chpasswd" >> /VSCODETOr.sh
 RUN echo "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd " >> /VSCODETOr.sh
 RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh

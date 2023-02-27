@@ -60,11 +60,11 @@ RUN rm -rf code-server_4.10.0_amd64.deb tor_0.4.7.13-1~jammy+1_amd64.deb
 RUN apt clean
 
 # CONFIg
-RUN echo "code-server --bind-addr 127.0.0.1:12345 >> vscode.log &" >> /VSCODETOr.sh
 RUN echo "service tor start" >> /VSCODETOr.sh
+RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
+RUN echo "code-server --bind-addr 127.0.0.1:12345" >> /VSCODETOr.sh
 RUN echo 'echo "######### wait Tor #########"' >> /VSCODETOr.sh
 RUN echo "echo 'sleep 1m'" >> /VSCODETOr.sh
-RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo 'echo "######### OK #########"' >> /VSCODETOr.sh
 RUN echo "useradd -m $USER " >> /VSCODETOr.sh
 RUN echo "echo '$USER:$PASSWORD' | sudo chpasswd" >> /VSCODETOr.sh

@@ -64,14 +64,13 @@ RUN apt clean
 # CONFIg
 RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
-RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
-#RUN echo 'echo "######### wait Tor #########"' >> /VSCODETOr.sh
-#RUN echo "echo 'sleep 1m'" >> /VSCODETOr.sh
-#RUN echo 'echo "######### OK #########"' >> /VSCODETOr.sh
-#RUN echo "useradd -m $USER " >> /VSCODETOr.sh
-#RUN echo "echo '$USER:$PASSWORD' | sudo chpasswd" >> /VSCODETOr.sh
-#RUN echo "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd " >> /VSCODETOr.sh
-#RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh
+RUN echo "code-server --bind-addr 127.0.0.1:10000 >> vscode.log &" >> /VSCODETOr.sh
+RUN echo "/etc/NX/nxserver --startup" >> /VSCODETOr.sh
+RUN echo "tail -f /usr/NX/var/log/nxserver.log" >> /VSCODETOr.sh
+RUN echo "adduser $USER sudo" >> /VSCODETOr.sh
+RUN echo "echo '$USER:$PASSWORD' | sudo chpasswd" >> /VSCODETOr.sh
+RUN echo "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd " >> /VSCODETOr.sh
+RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh
 
 
 RUN chmod 755 VSCODETOr.sh

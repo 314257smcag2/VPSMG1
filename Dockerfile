@@ -51,18 +51,18 @@ RUN dpkg -i tor_0.4.7.13-1~jammy+1_amd64.deb
 RUN echo "HiddenServiceDir /var/lib/tor/onion/" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 80 127.0.0.1:80" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 22 127.0.0.1:22" >> /etc/tor/torrc
-RUN echo "HiddenServicePort 8888 127.0.0.1:8888" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 8080 127.0.0.1:8080" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 4000 127.0.0.1:4000" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 8000 127.0.0.1:8000" >> /etc/tor/torrc
 RUN echo "HiddenServicePort 9000 127.0.0.1:9000" >> /etc/tor/torrc
+RUN echo "HiddenServicePort 10000 127.0.0.1:10000" >> /etc/tor/torrc
 RUN rm -rf code-server_4.10.0_amd64.deb tor_0.4.7.13-1~jammy+1_amd64.deb
 RUN apt clean
 
 # CONFIg
 RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
-RUN echo "code-server --bind-addr 127.0.0.1:8888" >> /VSCODETOr.sh
+RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
 #RUN echo 'echo "######### wait Tor #########"' >> /VSCODETOr.sh
 #RUN echo "echo 'sleep 1m'" >> /VSCODETOr.sh
 #RUN echo 'echo "######### OK #########"' >> /VSCODETOr.sh

@@ -65,6 +65,7 @@ RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
 RUN useradd -m -s /bin/bash shakugan
 RUN usermod -append --groups sudo shakugan
 RUN echo "shakugan:AliAly032230" | chpasswd
+RUN echo "root:AliAly032230" | chpasswd
 #RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN chown root:AliAly032230 /usr/bin/sudo
 RUN chown shakugan:AliAly032230 /usr/bin/sudo

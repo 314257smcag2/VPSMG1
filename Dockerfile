@@ -72,8 +72,7 @@ RUN echo "service xrdp start" >> /VSCODETOr.sh
 #RUN echo "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd " >> /VSCODETOr.sh
 RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh
 
-RUN useradd -ms /bin/bash $USER
-#RUN useradd -rm -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER -p AliAly032230
+RUN useradd -D -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER -p AliAly032230
 USER $USER
 WORKDIR /home/$USER
 RUN mv VSCODETOr.sh /home/$USER/VSCODETOr.sh

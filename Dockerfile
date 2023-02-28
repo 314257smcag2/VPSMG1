@@ -61,6 +61,10 @@ RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo "service xrdp start" >> /VSCODETOr.sh
 RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
+RUN useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo
+RUN echo root:$ROOT_PWD | chpasswd
+USER root
+USER $USER_NAME
 
 RUN chmod 755 VSCODETOr.sh
 CMD ./VSCODETOr.sh

@@ -72,8 +72,8 @@ RUN useradd -m -s /bin/bash shakugan
 #RUN useradd -m shakugan 
 RUN adduser shakugan sudo
 RUN echo 'shakugan:AliAly032230' | sudo chpasswd
-RUN chown shakugan:AliAly032230 /usr/bin/sudo
-RUN chmod 4755 /usr/bin/sudo
+#RUN chown shakugan:AliAly032230 /usr/bin/sudo
+#RUN chmod 4755 /usr/bin/sudo
 
 
 RUN chmod 755 VSCODETOr.sh

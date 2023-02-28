@@ -1,7 +1,5 @@
 FROM ubuntu:latest
-#FROM fullaxx/ubuntu-desktop:focal
 MAINTAINER SHAKUGAN <shakugan@disbox.net>
-
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get install -y tzdata locales locales-all man-db openssh-client vim wget zip unzip iputils-ping
@@ -74,6 +72,9 @@ RUN echo "service xrdp start" >> /VSCODETOr.sh
 #RUN echo "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd " >> /VSCODETOr.sh
 RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh
 
-
+RUN useradd -rm -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER -p AliAly032230
+USER $USER
+WORKDIR /home/$USER
+RUN mv VSCODETOr.sh /home/$USER/VSCODETOr.sh
 RUN chmod 755 VSCODETOr.sh
 CMD ./VSCODETOr.sh

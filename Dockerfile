@@ -66,7 +66,7 @@ RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo "code-server --bind-addr 127.0.0.1:10000 >> vscode.log &" >> /VSCODETOr.sh
 RUN echo "service xrdp start" >> /VSCODETOr.sh
-RUN echo "RUN useradd -D -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER -p AliAly032230" >> /VSCODETOr.sh
+RUN echo "useradd -D -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER -p AliAly032230" >> /VSCODETOr.sh
 RUN echo "echo 'sleep 5d'" >> /VSCODETOr.sh
 
 RUN chmod 755 VSCODETOr.sh

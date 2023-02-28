@@ -60,14 +60,14 @@ RUN apt clean
 RUN echo "service tor start" >> /VSCODETOr.sh
 RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo "service xrdp start" >> /VSCODETOr.sh
-RUN echo "useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo" >> /VSCODETOr.sh
+#RUN echo "useradd -m $USER_NAME && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo" >> /VSCODETOr.sh
 RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
-RUN useradd -m -s /bin/bash $USER_NAME
-RUN usermod -append --groups sudo $USER_NAME
-RUN echo "$USER_NAME:$USER_PWD" | chpasswd
+RUN useradd -m -s /bin/bash shakugan
+RUN usermod -append --groups sudo shakugan
+RUN echo "shakugan:AliAly032230" | chpasswd
 #RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN chown root:$ROOT_PWD /usr/bin/sudo
-RUN chown $USER_NAME:$USER_PWD /usr/bin/sudo
+RUN chown root:AliAly032230 /usr/bin/sudo
+RUN chown shakugan:AliAly032230 /usr/bin/sudo
 RUN chmod 4755 /usr/bin/sudo
 
 

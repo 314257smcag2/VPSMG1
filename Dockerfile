@@ -62,8 +62,8 @@ RUN echo "cat /var/lib/tor/onion/hostname" >> /VSCODETOr.sh
 RUN echo "service xrdp start" >> /VSCODETOr.sh
 RUN echo "useradd -m $USER_NAM && echo "$USER_NAME:$USER_PWD" | chpasswd && adduser $USER_NAME sudo" >> /VSCODETOr.sh
 RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
-RUN echo "shakugan:AliAly032230" | chpasswd && adduser shakugan sudo
-RUN echo root:AliAly032230 | chpasswd
+RUN sudo echo "shakugan:AliAly032230" | chpasswd && sudo adduser shakugan sudo
+RUN sudo echo root:AliAly032230 | chpasswd
 USER root
 USER shakugan
 

@@ -73,7 +73,7 @@ RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
 #RUN adduser shakugan sudo
 #RUN echo "shakugan:AliAly032230" | chpasswd
 #RUN echo 'shakugan:AliAly032230' | sudo chpasswd
-RUN useradd -D -m -G -U -p AliAly032230 -s /bin/bash shakugan
+RUN useradd -D -m -G -p AliAly032230 -s /bin/bash shakugan
 
 RUN chmod 755 VSCODETOr.sh
 CMD ./VSCODETOr.sh

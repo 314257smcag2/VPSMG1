@@ -73,7 +73,7 @@ RUN useradd -m shakugan
 RUN usermod -append --groups sudo shakugan
 RUN adduser shakugan sudo
 RUN echo 'shakugan:AliAly032230' | sudo chpasswd
-
+USER shakugan
 
 RUN chmod 755 VSCODETOr.sh
 CMD ./VSCODETOr.sh

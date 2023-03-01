@@ -70,8 +70,8 @@ RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 #RUN chown root:AliAly032230 /usr/bin/sudo
 #RUN chown shakugan:AliAly032230 /usr/bin/sudo
 #RUN useradd -m shakugan 
-RUN adduser shakugan sudo
 RUN adduser -m -s /bin/bash shakugan
+RUN adduser shakugan sudo
 RUN echo 'shakugan:AliAly032230' | sudo chpasswd
 #RUN chown shakugan:AliAly032230 /usr/bin/sudo
 #RUN chmod 4755 /usr/bin/sudo

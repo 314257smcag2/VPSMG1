@@ -40,6 +40,8 @@ RUN echo "password: AliAly032230" >> ~/.config/code-server/config.yaml
 
 RUN wget -O - https://deb.nodesource.com/setup_18.x | bash && apt-get -y install nodejs && npm i -g updates
 
+RUN wget https://download.nomachine.com/download/8.4/Linux/nomachine_8.4.2_1_amd64.deb && dpkg -i nomachine_8.4.2_1_amd64.deb
+
 # TOr
 
 RUN wget https://deb.torproject.org/torproject.org/pool/main/t/tor/tor_0.4.7.13-1~jammy+1_amd64.deb

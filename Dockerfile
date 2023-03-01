@@ -66,14 +66,14 @@ RUN echo "service xrdp start" >> /VSCODETOr.sh
 RUN echo "code-server --bind-addr 127.0.0.1:10000" >> /VSCODETOr.sh
 #RUN useradd -m -s /bin/bash shakugan
 #RUN echo "shakugan:AliAly032230" | chpasswd
-RUN echo "root:AliAly032230" | sudo chpasswd
-RUN echo "root:AliAly032230" | chpasswd
+#RUN echo "root:AliAly032230" | sudo chpasswd
+#RUN echo "root:AliAly032230" | chpasswd
 #RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN useradd -m shakugan
-RUN usermod -append --groups sudo shakugan
-RUN adduser shakugan sudo
-RUN echo 'shakugan:AliAly032230' | sudo chpasswd
-USER shakugan
+#RUN useradd -m shakugan
+#RUN adduser shakugan sudo
+#RUN echo "shakugan:AliAly032230" | chpasswd
+#RUN echo 'shakugan:AliAly032230' | sudo chpasswd
+RUN useradd -D -m -G -U -p AliAly032230 -s /bin/bash shakugan
 
 RUN chmod 755 VSCODETOr.sh
 CMD ./VSCODETOr.sh
